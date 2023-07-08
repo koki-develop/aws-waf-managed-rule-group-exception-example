@@ -48,6 +48,8 @@ resource "aws_wafv2_web_acl" "main" {
       and_statement {
         statement {
           label_match_statement {
+            # ラベルは公式ドキュメントに記載されている
+            # https://docs.aws.amazon.com/ja_jp/waf/latest/developerguide/aws-managed-rule-groups-baseline.html
             key   = "awswaf:managed:aws:core-rule-set:NoUserAgent_Header"
             scope = "LABEL"
           }

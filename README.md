@@ -1,7 +1,7 @@
 # 概要
 
-`AWSManagedRulesCommonRuleSet` を設定している AWS WAF ACL で、特定のパスで特定のルールを無効にする設定の例。  
-当該プロジェクトではパスが `/hello.txt` の場合に `NoUserAgent_HEADER` ルールを適用しないように設定している。
+AWS WAF ACL でマネージドルールの特定のルールを特定の条件下で無効にする Terraform のサンプルコード。
+当該プロジェクトでは `/hello.txt` というパスに対して `AWSManagedRulesCommonRuleSet` ルールセットの `NoUserAgent_HEADER` ルールが適用されないように設定している。
 
 # 検証手順
 
