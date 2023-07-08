@@ -53,21 +53,25 @@ resource "aws_wafv2_web_acl" "main" {
           }
         }
 
-        statement {
-          not_statement {
-            statement {
-              byte_match_statement {
-                # /hello.txt 以外のパスに対して NoUserAgent_HEADER ルールを適用してブロックする
-                search_string         = "/hello.txt"
-                positional_constraint = "EXACTLY"
+        # 特定のパス以外に対して NoUserAgent_HEADER ルールを適用してブロックする
+        dynamic "statement" {
+          for_each = ["/hello.txt"] # ブロックするパスのリスト
 
-                field_to_match {
-                  uri_path {}
-                }
+          content {
+            not_statement {
+              statement {
+                byte_match_statement {
+                  search_string         = statement.value
+                  positional_constraint = "EXACTLY"
 
-                text_transformation {
-                  priority = 0
-                  type     = "NONE"
+                  field_to_match {
+                    uri_path {}
+                  }
+
+                  text_transformation {
+                    priority = 0
+                    type     = "NONE"
+                  }
                 }
               }
             }
