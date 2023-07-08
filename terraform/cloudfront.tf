@@ -7,7 +7,8 @@ data "aws_cloudfront_cache_policy" "caching_disabled" {
 }
 
 resource "aws_cloudfront_distribution" "main" {
-  enabled = true
+  enabled    = true
+  web_acl_id = aws_wafv2_web_acl.main.arn
 
   origin {
     origin_id                = aws_s3_bucket.main.id
