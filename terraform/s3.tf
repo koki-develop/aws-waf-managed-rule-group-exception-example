@@ -10,6 +10,13 @@ resource "aws_s3_bucket_public_access_block" "main" {
   restrict_public_buckets = true
 }
 
+resource "aws_s3_object" "hello_txt" {
+  bucket       = aws_s3_bucket.main.id
+  key          = "hello.txt"
+  content      = "Hello, World"
+  content_type = "text/plain"
+}
+
 resource "aws_s3_bucket_policy" "main" {
   bucket = aws_s3_bucket.main.id
   policy = data.aws_iam_policy_document.s3_main_policy.json
